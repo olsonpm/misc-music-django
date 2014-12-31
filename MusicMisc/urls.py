@@ -1,10 +1,7 @@
 from django.conf.urls import patterns, include, url
-from django.contrib import admin
+from MusicMisc import view
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'MusicMisc.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
+	url(r'ModifyMusicXML', view.modifyMusicXML, name='ModifyMusicXML')
+    , url(r'^$', view.index, name='index')
 )

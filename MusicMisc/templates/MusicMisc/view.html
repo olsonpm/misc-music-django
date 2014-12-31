@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load staticfiles %}
+        
+        <title>Music Stuff</title>
+        
+        <link rel="stylesheet" href="{% static 'MusicMisc/reset.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+        
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+        
+        <link rel="stylesheet" href="{% static 'MusicMisc/view.css' %}">
+        <script src="{% static 'MusicMisc/view.browser.js' %}"></script>
+        
+    </head>
+
+    <body ng-app="musicMisc" ng-controller="MusicMiscController">
+        <div class="jumbotron site-container">
+            <h1>Music Stuff</h1>
+            <p>Testing bootstrap too while I'm at it</p>
+            <diatonic-scale></diatonic-scale>
+            <music-xml></music-xml>
+        </div>
+    </body>
+</html>
