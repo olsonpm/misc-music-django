@@ -1,1 +1,2 @@
 django-toolbelt
+whitenoise==1.0.3
