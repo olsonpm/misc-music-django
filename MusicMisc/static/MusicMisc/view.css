@@ -134,6 +134,7 @@ music-xml .options label{
     width: 370px;
     margin-right: 20px;
     text-align: right;
+    font-size: 18px;
 }
 music-xml .options input {
     margin-right: 200px;
