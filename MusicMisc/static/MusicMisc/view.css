@@ -86,7 +86,6 @@ input[type="file"] {
     font-size: 30px;
     vertical-align: middle;
     margin-left: 8px;
-    cursor: pointer;
 }
 
 .fancyboxd {
@@ -219,7 +218,7 @@ diatonic-scale {
     top: 10px;
 }
 
-.diatonic-scale > li.play > .glyphicon:hover {
-    color: darkgrey;
+.glyphicon:hover {
+    color: darkgrey !important;
     cursor: pointer;
 }
