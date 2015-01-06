@@ -7,13 +7,49 @@ var musicMisc = angular.module('musicMisc', []);
 musicMisc.controller('MusicMiscController', function ($scope) {
       console.log('MusicMiscCtrl ran');
     })
-    .directive('diatonicScale', function() {
+    .directive('diatonicScale', function() {        
         function linkFn(scope, element, attrs) {
-            scope.modes = CS.Modes;
+			window.ctx = new AudioContext();
+			
+            var tmpModes = [];
+            tmpModes.push(CS.Modes['Ionian (Major)']);
+            tmpModes.push(CS.Modes['Dorian']);
+            tmpModes.push(CS.Modes['Phrygian']);
+            tmpModes.push(CS.Modes['Lydian']);
+            tmpModes.push(CS.Modes['Mixolydian']);
+            tmpModes.push(CS.Modes['Aeolian (Minor)']);
+            tmpModes.push(CS.Modes['Locrian']);
+            scope.modes = tmpModes;
+            scope.customModeName = "";
+            scope.customModePattern = "";
+            scope.customModeErrors = [];
+            scope.customModeSuccess = "";
             
-            scope.curMode = scope.modes['Ionian (Major)'];
+            scope.curMode = scope.modes[0];
             scope.tonic = "C";
-            scope.diatonicScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
+            scope.diatonicScale = [];
+            var tmpScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
+            tmpScale.toArray().forEach(function(el) {
+                scope.diatonicScale.push(el);
+            });
+            
+            scope.diatonicScale.forEach(function(e){ e.active = true; });
+            
+            CS.Utils.AttachFrequenciesToDiatonicScale(scope.diatonicScale);
+            
+            $('#add-custom-mode').keydown(function(event) {
+                if (event.keyCode == 13) {
+                    $('#add-custom-mode .submit').click();
+                }
+                if (event.keyCode == 27) {
+                    $.fancybox.close();
+                }
+            })
+            
+            $('diatonic-scale .fancyboxd, diatonic-scale .fancybox-trigger').fancybox({ autoSize: false, autoHeight: true });
+            element.find('.glyphicon-question-sign').click(function() {
+                $('diatonic-scale .fancyboxd.info').click();
+            });
             
             scope.changeMode = function(mode){
                 scope.curMode = mode;
@@ -22,8 +58,77 @@ musicMisc.controller('MusicMiscController', function ($scope) {
             scope.modifyScale = modifyScale;
             
             function modifyScale() {
-                scope.diatonicScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
+				scope.diatonicScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
+				scope.diatonicScale.forEach(function(e){ e.active = false; });
             };
+            
+            scope.addCustomMode = function() {
+                if (verifyCustomMode()) {
+                    scope.modes.push(new CS.Mode(scope.customModeName, scope.customModePattern));
+                    
+                    scope.customModeSuccess = "'" + scope.customModeName + "' has been successfully added.";
+                    
+                    // reset fields
+                    scope.customModeName = "";
+                    scope.customModePattern = "";
+                    scope.customModeErrors = [];
+                }
+            }
+            
+            $('#custom-mode-pattern').keypress(function(evt){
+                var charCode = (evt.which) ? evt.which : event.keyCode;
+                var enable1 = true;
+                var enable2 = true;
+                
+                // if the text in the box is selected, then don't disable input
+                if (window.getSelection().type !== "Range"
+                    || (window.getSelection().type === "Range"
+                    && window.getSelection().anchorNode.getElementsByTagName('input')[0] != $('#custom-mode-pattern').get(0))) {
+                    enable1 = ($('#custom-mode-pattern').val().replace(/2/g, '').length < 2);
+                    enable2 = ($('#custom-mode-pattern').val().replace(/1/g, '').length < 5);
+                }
+                
+                return (
+                    (charCode == 49 && enable1) 
+                    || (charCode == 50 && enable2)
+                );
+            });
+            
+            function verifyCustomMode() {
+                scope.customModeErrors = [];
+                var result = true;
+                if (scope.customModePattern.length != 7) {
+                    result = false;
+                    scope.customModeErrors.push("Pattern must contain two half steps and 5 whole steps.");
+                }
+                
+                if (scope.customModeName.length == 0 || /^\s+$/.test(scope.customModeName)) {
+                    result = false;
+                    scope.customModeErrors.push("Name must not be empty nor contain only white space characters");
+                }
+                
+                if (!result) {
+                    scope.customModeSuccess = "";
+                }
+                
+                return result;
+            }
+            
+            scope.playScale = function() {
+                var playSecondsCounter = 0;
+                var playLengthSeconds = 0.5;
+                var transitionTime = 0.11;
+                
+				CS.Utils.AttachFrequenciesToDiatonicScale(scope.diatonicScale);
+                CS.Utils.AttachPlayNoteToDiatonicScale(scope.diatonicScale, playLengthSeconds);
+                
+                scope.diatonicScale.forEach(function(note) {
+                    setTimeout(function(note_) {
+                        note_.playNote(note_, ctx);
+                    }, (playSecondsCounter) * 1000, note);
+                    playSecondsCounter += playLengthSeconds + transitionTime;
+                });
+            }
         }
         
         return {

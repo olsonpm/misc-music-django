@@ -24,6 +24,10 @@ label {
     background-color: transparent;
 }
 
+.fancybox-wrap {
+    max-width: 60%;
+}
+
 /*-------------------------*
  * End of vendor overrides *
  *-------------------------*/
@@ -49,7 +53,7 @@ body {
     margin: 0 auto;
 }
 
-p, input, label {
+p, input, label, li, a{
     font-size: 18px;
 }
 
@@ -62,6 +66,52 @@ input[type="file"] {
     margin: 0 auto;
     text-align: center;
     cursor: pointer;
+}
+
+.panel-heading > h3 {
+    line-height: 30px;
+    display: inline;
+    vertical-align: top;
+}
+
+.panel-heading > h3 > .glyphicon {
+    font-size: 30px;
+    vertical-align: middle;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.fancyboxd {
+    display: none;
+    padding: 20px 15px;
+    text-align: center;
+}
+
+.fancyboxd > *:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.fancyboxd > *:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.error {
+    color: rgb(181, 22, 22);
+}
+
+.success {
+    color: rgb(34, 116, 0);
+}
+
+input[type="text"] {
+    display: inline-block;
+}
+
+.anecdote {
+    font-size: 14px;
+    display: inline-block;
 }
 
 /*-----------------*
@@ -87,8 +137,13 @@ diatonic-scale {
 }
 
 #tonic {
-    display: inline-block;
     width: 75px;
+}
+
+#custom-mode-name
+    , #custom-mode-pattern {
+    
+    width: 200px;
 }
 
 #mode-dropdown > button:first-child{
@@ -96,6 +151,11 @@ diatonic-scale {
 }
 #mode-dropdown > button:first-child:hover {
     cursor: default !important;
+}
+
+/* couldn't think of anything semantically correct - so I settled on this */
+#add-custom-mode-trigger {
+    margin-left: 20px;
 }
 
 .form-row {
@@ -108,6 +168,8 @@ diatonic-scale {
 
 .form-row > label {
     margin-right: 20px;
+    max-width: 200px;
+    vertical-align: middle;
 }
 
 .panel-heading > h3{
@@ -119,11 +181,31 @@ diatonic-scale {
     display: inline-block;
     margin: 0 4px;
     font-size: 18px;
-    color: white;
-    background-color: #3073AC; /* blue */
     border-radius: 6px;
     width: 75px;
     height: 60px;
     text-align: center;
     line-height: 60px;
+    vertical-align: top;
+}
+
+.diatonic-scale > li.note {
+    color: white;
+    background-color: #3073AC; /* blue */
+}
+
+.diatonic-scale  > li.note.active {
+	background-color: #78A1C5; /* light blue */
+}
+
+.diatonic-scale > li.play > .glyphicon {
+    color: black;
+    font-size: 40px;
+    position: relative;
+    top: 10px;
+}
+
+.diatonic-scale > li.play > .glyphicon:hover {
+    color: dark-gray;
+    cursor: pointer;
 }
