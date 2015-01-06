@@ -33,8 +33,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
                 scope.diatonicScale.push(el);
             });
             
-            scope.diatonicScale.forEach(function(e){ e.active = true; });
-            
             CS.Utils.AttachFrequenciesToDiatonicScale(scope.diatonicScale);
             
             $('#add-custom-mode').keydown(function(event) {
@@ -59,7 +57,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
             
             function modifyScale() {
 				scope.diatonicScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
-				scope.diatonicScale.forEach(function(e){ e.active = false; });
             };
             
             scope.addCustomMode = function() {
