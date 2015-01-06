@@ -4,10 +4,7 @@ var CS = require('./ChromaticScale');
 
 var musicMisc = angular.module('musicMisc', []);
 
-musicMisc.controller('MusicMiscController', function ($scope) {
-      console.log('MusicMiscCtrl ran');
-    })
-    .directive('diatonicScale', function() {        
+musicMisc.directive('diatonicScale', function() {        
         function linkFn(scope, element, attrs) {
 			window.ctx = new AudioContext();
 			
@@ -136,6 +133,13 @@ musicMisc.controller('MusicMiscController', function ($scope) {
     })
     .directive('musicXml', function() {
         function linkFn(scope, element, attrs) {
+			$('.fancybox').fancybox({ autoSize: false });
+			
+            $('music-xml .fancyboxd, diatonic-scale .fancybox-trigger').fancybox({ autoSize: false, autoHeight: true });
+            element.find('.glyphicon-question-sign').click(function() {
+                $('music-xml .fancyboxd.info').click();
+            });
+			
             scope.Fingerings = true;
             scope.RehearsalLetters = true;
             scope.ScaleDegrees = true;
@@ -150,13 +154,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
                 var fname = (scope.file instanceof File)
                     ? scope.file.name
                     : '';
-                
-                console.log('Fingerings: ' + scope.Fingerings
-                    + '\nRehearsal Letters: ' + scope.RehearsalLetters
-                    + '\nScale Degrees: ' + scope.ScaleDegrees
-                    + '\nStaff Spacing: ' + scope.StaffSpacing
-                    + '\nFile Name: ' + fname);
-                console.log('submitted!');
                 
                 var myFormData = new FormData();
                 myFormData.append("Fingerings", scope.Fingerings);

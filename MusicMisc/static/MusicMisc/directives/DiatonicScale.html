@@ -71,20 +71,21 @@
         <input id="custom-mode-pattern" type="text" maxlength="7" class="form-control input-lg" ng-model="customModePattern">
     </div>
     <div class="form-row">
-        <button class="submit" type="button" class="btn btn-primary btn-lg" ng-click="addCustomMode()">Submit</button>
+        <button type="button" class="btn btn-primary btn-lg submit" ng-click="addCustomMode()">Submit</button>
     </div>
 </div>
 <div class="fancyboxd info">
     <h2>What is this?</h2>
     <p>
         This widget lets you play around with different tonics and modes to see what the resulting diatonic scale looks like.  I only made it because the functionality was required
-        in order to insert scale degrees given different chord symbols - and because I found it interesting.
+        for the MusicXML Widget - and because I found it interesting.
     </p>
     <h3>A personal rambling</h3>
     <p>
-        If you've ever learned to read music, you might know that all of the common modes will follow the same key signature flat/sharp pattern (BEADGCF and FCGDAEB) because they are all an 
-        offset of Ionion mode.  So what happens when you re-order the whole/half step pattern?  For example, try adding the pattern 
-        2,1,2,1,2,2,2 and name it "Panda".  You'll notice Panda mode no longer follows the flat/sharp pattern.  This is just one way to create some funky sounding scales when
-        compared to the traditional Ionian/Aeolian sounds we're trained to hear.  There are plenty more ways to tamper with the fundamentals in western music and create something blasphemous.
+        If you've ever learned to read music, you might know that all of the common modes will follow the same key signature flat/sharp pattern (BEADGCF and FCGDAEB) because their whole/half step patterns are all an 
+        offset of Ionion mode.  So what happens when you re-order the whole/half step pattern?  For example, click 'Add Custom Mode' and give this new mode the name Panda with the pattern '2121222' -> click [Submit].
+        Now in your list of modes choose 'Panda', choose a tonic of 'C' -> click [Submit].  Take a look at the resulting diatonic scale and you'll notice Panda mode doesn't follow the flat/sharp pattern (contains BEAG, no D).  
+        This is just one way to create some funky sounding scales when compared to the traditional Ionian/Aeolian sounds we're trained to hear.  There are plenty more ways to tamper with the 
+        fundamentals in western music and create something blasphemous.
     </p>
 </span>

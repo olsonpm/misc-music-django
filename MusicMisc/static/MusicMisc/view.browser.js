@@ -254,20 +254,16 @@ Utils.AttachPlayNoteToDiatonicScale = function(diatonicScale, playLengthSeconds)
 					$(this).addClass('active');
 				}
 			});
-            var d = new Date();
-            console.log(note.Name + ' started playing at ' + d.getSeconds() + '.' + d.getMilliseconds());
             
             setTimeout(function(curNote_, gainNode_, audioCtx_){ 
-				console.log(note.Name + ' is no longer freaking active');
+                gainNode_.gain.linearRampToValueAtTime(gainNode_.gain.value, audioCtx_.currentTime);
+                gainNode_.gain.linearRampToValueAtTime(0, audioCtx_.currentTime + transitionEndTime);
+                
 				$('.diatonic-scale').children('li').each(function() {
 					if ($(this).text().trim() === curNote.Name) {
 						$(this).removeClass('active');
 					}
 				});
-                gainNode_.gain.linearRampToValueAtTime(gainNode_.gain.value, audioCtx_.currentTime);
-                gainNode_.gain.linearRampToValueAtTime(0, audioCtx_.currentTime + transitionEndTime);
-                var d = new Date();
-                console.log(curNote_.Name + ' stopped playing at ' + d.getSeconds() + '.' + d.getMilliseconds());
             }, (playLengthSeconds * 1000) + (transitionStartTime * 1000), curNote, gainNode, audioCtx);
         };
     });
@@ -334,10 +330,7 @@ var CS = require('./ChromaticScale');
 
 var musicMisc = angular.module('musicMisc', []);
 
-musicMisc.controller('MusicMiscController', function ($scope) {
-      console.log('MusicMiscCtrl ran');
-    })
-    .directive('diatonicScale', function() {        
+musicMisc.directive('diatonicScale', function() {        
         function linkFn(scope, element, attrs) {
 			window.ctx = new AudioContext();
 			
@@ -363,8 +356,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
                 scope.diatonicScale.push(el);
             });
             
-            scope.diatonicScale.forEach(function(e){ e.active = true; });
-            
             CS.Utils.AttachFrequenciesToDiatonicScale(scope.diatonicScale);
             
             $('#add-custom-mode').keydown(function(event) {
@@ -389,7 +380,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
             
             function modifyScale() {
 				scope.diatonicScale = CS.Utils.DiatonicScaleFromTonicAndMode(scope.tonic, scope.curMode);
-				scope.diatonicScale.forEach(function(e){ e.active = false; });
             };
             
             scope.addCustomMode = function() {
@@ -469,6 +459,13 @@ musicMisc.controller('MusicMiscController', function ($scope) {
     })
     .directive('musicXml', function() {
         function linkFn(scope, element, attrs) {
+			$('.fancybox').fancybox({ autoSize: false });
+			
+            $('music-xml .fancyboxd, diatonic-scale .fancybox-trigger').fancybox({ autoSize: false, autoHeight: true });
+            element.find('.glyphicon-question-sign').click(function() {
+                $('music-xml .fancyboxd.info').click();
+            });
+			
             scope.Fingerings = true;
             scope.RehearsalLetters = true;
             scope.ScaleDegrees = true;
@@ -483,13 +480,6 @@ musicMisc.controller('MusicMiscController', function ($scope) {
                 var fname = (scope.file instanceof File)
                     ? scope.file.name
                     : '';
-                
-                console.log('Fingerings: ' + scope.Fingerings
-                    + '\nRehearsal Letters: ' + scope.RehearsalLetters
-                    + '\nScale Degrees: ' + scope.ScaleDegrees
-                    + '\nStaff Spacing: ' + scope.StaffSpacing
-                    + '\nFile Name: ' + fname);
-                console.log('submitted!');
                 
                 var myFormData = new FormData();
                 myFormData.append("Fingerings", scope.Fingerings);

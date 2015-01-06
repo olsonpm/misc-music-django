@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.dropdown-menu-lg li a {
+	font-size: 18px;
+}
+
 .panel-default {
     border-color: #ccc;
 }
@@ -26,6 +30,10 @@ label {
 
 .fancybox-wrap {
     max-width: 60%;
+}
+.fancybox-inner {
+	height: auto !important;
+	width: auto !important;
 }
 
 /*-------------------------*
@@ -54,7 +62,7 @@ body {
 }
 
 p, input, label, li, a{
-    font-size: 18px;
+    font-size: 21px;
 }
 
 h3 {
@@ -85,6 +93,10 @@ input[type="file"] {
     display: none;
     padding: 20px 15px;
     text-align: center;
+}
+
+.fancyboxd p {
+	font-size: 18px;
 }
 
 .fancyboxd > *:first-child {
@@ -156,6 +168,7 @@ diatonic-scale {
 /* couldn't think of anything semantically correct - so I settled on this */
 #add-custom-mode-trigger {
     margin-left: 20px;
+    font-size: 18px;
 }
 
 .form-row {
@@ -206,6 +219,6 @@ diatonic-scale {
 }
 
 .diatonic-scale > li.play > .glyphicon:hover {
-    color: dark-gray;
+    color: darkgrey;
     cursor: pointer;
 }
