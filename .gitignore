@@ -2,7 +2,6 @@ venv
 *.pyc
 staticfiles
 node_modules
-package.json
 tmplogs.txt
 __pycache__
 #*#
