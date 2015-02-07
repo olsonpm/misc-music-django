@@ -6,3 +6,4 @@ package.json
 tmplogs.txt
 __pycache__
 #*#
+pip-selfcheck.json
