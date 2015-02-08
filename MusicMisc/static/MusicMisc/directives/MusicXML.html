@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+    
+  <div class="panel-heading">
+    <h3>MusicXML Widget <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></h3>
+  </div>
+  
+  <div class="panel-body">
+    <p>
+		Requirements: <a href="static/MusicMisc/TestMusicXML.xml" download>A MusicXML file</a> to upload, and a notation viewer compatible with MusicXML (only tested in finale mind you!).  
+		<a class="fancybox" href="static/MusicMisc/before.png">Example before</a> all options are ran.  <a class="fancybox" href="static/MusicMisc/after.png">Example after</a>.
+    </p>
+      
+    <div class="form-row">
+        <input id="XMLInput" name="XMLInput" type="file" accept=".xml" value="Upload XML" onchange="angular.element(this).scope().fileUploaded(this.files[0])">
+    </div>
+      
+    <div class="form-row options">
+        <ul>
+            <li>
+                <label for="Fingerings">Remove all fingerings</label>
+                <input id="Fingerings" type="checkbox" name="vehicle" value="Fingerings" ng-model="Fingerings">
+            </li>
+            <li>
+                <label for="RehearsalLetters">Remove all rehearsal letters</label>
+                <input id="RehearsalLetters" type="checkbox" name="vehicle" value="RehearsalLetters" ng-model="RehearsalLetters">
+            </li>
+            <li>
+                <label for="ScaleDegrees">Insert scale degrees</label>
+                <input id="ScaleDegrees" type="checkbox" name="vehicle" value="ScaleDegrees" ng-model="ScaleDegrees">
+            </li>
+            <li>
+                <label for="StaffSpacing">Set staff spacing (amount not configurable)</label>
+                <input id="StaffSpacing" type="checkbox" name="vehicle" value="StaffSpacing" ng-model="StaffSpacing">
+            </li>
+        </ul>
+    </div>
+    
+    <div class="form-row">
+        <button type="button" class="btn btn-primary btn-lg" ng-click="submit()">Download</button>
+    </div>
+  </div>
+  
+</div>
+
+<div class="fancyboxd info">
+    <h2>What is this?</h2>
+    <p>
+        This widget lets you upload a MusicXML file, choose from a couple modifications, and finally download the resulting file.
+    </p>
+    <h3>Why?</h3>
+    <p>
+        My brother decided that for studying purposes it would be nice to see the scale degrees for a melody in a given lead sheet of jazz music.  In order to make the music look nice,
+        I had to remove the fingerings, rehearsal letters, and widen the staff spacing.  Instead of doing that all in a magic "make it work" option, I thought it made just as much sense to separate them all out.
+    </p>
+</span>
