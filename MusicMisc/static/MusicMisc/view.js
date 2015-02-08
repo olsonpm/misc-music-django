@@ -6,7 +6,8 @@ var musicMisc = angular.module('musicMisc', []);
 
 musicMisc.directive('diatonicScale', function() {
         function linkFn(scope, element, attrs) {
-            window.ctx = new AudioContext();
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            window.ctx = new window.AudioContext();
 
             var tmpModes = [];
             tmpModes.push(CS.Modes['Ionian (Major)']);
