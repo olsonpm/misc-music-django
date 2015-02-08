@@ -66,3 +66,6 @@ tmplogs.txt
 #*#
 pip-selfcheck.json
 MusicMisc/static/MusicMisc/view.browser.js
+.env
+bin
+include
