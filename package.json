@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "npm i && pip install -r ./requirements.txt",
+    "start": "browserify -e ./MusicMisc/static/MusicMisc/view.js -o ./MusicMisc/static/MusicMisc/view.browser.js && python3 manage.py collectstatic --noinput && gunicorn MusicMisc.wsgi"
   },
   "author": "",
   "license": "ISC",
